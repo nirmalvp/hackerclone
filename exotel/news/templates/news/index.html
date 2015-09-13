@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+{% for article in articles %}
+          <div class="row">
+            <br>
+            <div class="col-md-2 col-sm-3 text-center">
+              <a class="story-title" href="#"><img alt="" src="http://api.randomuser.me/portraits/thumb/men/58.jpg" style="width:100px;height:100px" class="img-circle"></a>
+            </div>
+            <div class="col-md-10 col-sm-9">
+              <h3>
+                <a href="{{article.article_url}}">{{article.article_title}}</a>
+              </h3>
+              <div class="row">
+                <div class="col-xs-9">
+                  <h4><span class="label label-default">{{article.article_upvotes}} points</span></h4><h4>
+                  <small style="font-family:courier,'new courier';" class="text-muted">Added on {{article.article_addeddate}}  • <a href="{{article.article_url}}" class="text-muted">Read More</a></small>
+                  </h4></div>
+                <div class="col-xs-3"></div>
+              </div>
+              <br><br>
+            </div>
+          </div>
+{% endfor %}
+<hr>
+<div class="pull-right">
+  <ul class="pagination">
+    {% if articles.has_previous %}
+        <li><a href="?page={{ articles.previous_page_number }}">previous</a></li>
+    {% else %}
+        <li class="disabled"><span>previous</span></li>
+    {% endif %}
+    {% if articles.has_next %}
+        <li><a href="?page={{ articles.next_page_number }}">next</a></li>
+    {% else %}
+        <li class="disabled"><span>next</span></li>
+    {% endif %}
+  </ul>
+</div>
+{% endblock %}
