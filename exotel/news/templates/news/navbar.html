@@ -13,10 +13,12 @@
     <nav class="collapse navbar-collapse" role="navigation">
       <ul class="nav navbar-nav">
             {% url 'home' as home %}
-            {% url 'contact' as contact %}
+            {% url 'submit' as submit %}
             <li {% if request.path == home %} class="active" {%endif%}><a href="{% url 'home' %}">Home</a></li>
+        {% if request.user.is_authenticated %}
 
-        <li {% if request.path == contact %} class="active" {%endif%}><a href="{%url 'contact' %}">Contact</a></li>
+        <li {% if request.path == submit %} class="active" {%endif%}><a href="{%url 'submit' %}">Submit</a></li>
+         {% endif %}
       </ul>
 
       <ul class="nav navbar-right navbar-nav">

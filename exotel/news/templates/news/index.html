@@ -2,25 +2,36 @@
 {% load staticfiles %}
 {% block content %}
 {% for article in articles %}
+          <form method="post" action="{% url 'upvote' %}" class="vote_form">
+          {% csrf_token %}
           <div class="row">
-            <br>
+            <!-- <br>
             <div class="col-md-2 col-sm-3 text-center">
               <a class="story-title" href="#"><img alt="" src="http://api.randomuser.me/portraits/thumb/men/58.jpg" style="width:100px;height:100px" class="img-circle"></a>
-            </div>
+            </div> -->
             <div class="col-md-10 col-sm-9">
               <h3>
                 <a href="{{article.article_url}}">{{article.article_title}}</a>
               </h3>
               <div class="row">
                 <div class="col-xs-9">
-                  <h4><span class="label label-default">{{article.article_upvotes}} points</span></h4><h4>
-                  <small style="font-family:courier,'new courier';" class="text-muted">Added on {{article.article_addeddate}}  • <a href="{{article.article_url}}" class="text-muted">Read More</a></small>
+                  <h4><span class="label label-default upvotecount">{{article.article_upvotes}} upvotes</span></h4><h4>
+                  <small style="font-family:courier,'new courier';" class="text-muted">
+                  <button id="upvote_btn">
+                  {% if article.pk not in voted %}Upvote{% else %}Upvoted{% endif %}</button>
+                  Added on {{article.article_addeddate}}  • <a href="{{article.article_url}}" class="text-muted">Read More</a>
+                  <!-- <input type="hidden" id ="userId" value="{{user.id}}" /> -->
+                  <input type="hidden" id ="articleId" value="{{article.id}}" class="hidden_id" />
+                  </form>
+
+                  </small>
                   </h4></div>
                 <div class="col-xs-3"></div>
               </div>
-              <br><br>
+              <br>
             </div>
           </div>
+          </form>
 {% endfor %}
 <hr>
 <div class="pull-right">
@@ -37,4 +48,8 @@
     {% endif %}
   </ul>
 </div>
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'js/main.js' %}"></script>
 {% endblock %}
