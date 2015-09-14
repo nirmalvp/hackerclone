@@ -1,36 +1,3 @@
-function upvote(btn, l_id,upvotecount) {
-    console.log("create post is working!!") // sanity check
-    $.ajax({
-        url : "upvote/", // the endpoint
-        type : "POST", // http method
-        data : { articleId : l_id}, // data sent with the post request
-
-        // handle a successful response
-        success : function(json) {
-            console.log(json)
-            if (json.error){
-                window.location.href = "login/";
-            }
-            else{
-            btn.text(json['btn_text'])
-            upvotecount.html(json['total_votes']+ " upvotes");
-            }
-        }
-    });
-};
-
-$('.vote_form').on('submit', function(event){
-    event.preventDefault();
-    console.log("form submitted!")  // sanity check
-    var btn = $("button", this);
-    var upvotecount = $(".upvotecount", this);
-
-    var l_id = $(".hidden_id", this).val();
-    console.log(l_id)
-    upvote(btn, l_id,upvotecount);
-});
-
-
 // This function gets cookie with a given name
 function getCookie(name) {
     var cookieValue = null;

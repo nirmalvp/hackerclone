@@ -1,36 +1,47 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 {% block content %}
-<div class="row">
-    <div class='col-sm-6 col-sm-offset-3'>
-        {% if form.errors %}
-            {% for field in form %}
-                {% for error in field.errors %}
-                    <div class="alert alert-error">
-                        <strong>{{ error|escape }}</strong>
-                    </div>
-                {% endfor %}
-            {% endfor %}
-            {% for error in form.non_field_errors %}
-                <div class="alert alert-error">
-                    <strong>{{ error|escape }}</strong>
-                </div>
-            {% endfor %}
-        {% endif %}
 
-        <form role="form" action={% url 'submit' %} method="POST">
-            {% csrf_token %}
-            <div class="col-md-9">
-                <div class="form-group">
-                    <label>Article Link:</label>
-                    {{ form.article_url }}
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-default">Submit</button>
-                </div>
-            </div>
-        </form>
+<div class="row">
+<div class='col-md-6 col-sm-offset-3'>
+<form role="form" action={% url 'submit' %} method="POST">
+{% csrf_token %}
+<div class="col-md-9">
+  <div class="form-group">
+    <label for="linktitle">Title:</label>
+    <input type="text" class="form-control" id="linktitle" name="linktitle" readonly="readonly" required>
+    <div id="loading" style="display:none">
+      <img id="loading-image" src="{% static 'img/ajax-loader.gif' %}" alt="Loading..." />
     </div>
+  </div>
+  <div class="form-group">
+    <label for="linkurl">Link:</label>
+    <div class="input-group">
+      <input type="url" class="form-control" name="linkurl" id="linkurl">
+      <span class="input-group-btn">
+          <button class="btn btn-default" type="button" id="getTitle">Click me</button>
+      </span>
+    </div>
+  </div>
+ <div class="form-group">
+    <button type="submit" class="btn btn-default" id="submit" disabled="disabled">Submit</button>
+  </div>
+</div>
+<div class="row">
+
 </div>
 
+</form>
 
+</div>
 {% endblock %}
+
+{% block script %}
+<script src="{% static 'js/submit.js' %}"></script>
+<script src="{% static 'js/csrf.js' %}"></script>
+{% endblock %}
+
+
+
+
+

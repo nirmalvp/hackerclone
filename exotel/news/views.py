@@ -33,19 +33,34 @@ def index(request):
         voted = [vote.article_id for vote in voted]
     return render(request, 'news/index.html', {"articles": articles, "voted":voted})
 
+
 @login_required
 def submit(request):
     if request.method =='POST':
-        form = ArticleForm(request.POST)
-        article = form.save(commit = False)
-        soup = BeautifulSoup(requests.get(article.article_url).text)
-        article.article_title = soup.title.string
-        article.user = request.user
-        article.save()
+        article_title = request.POST['linktitle']
+        article_url = request.POST['linkurl']
+        article_user = request.user
+        Article.objects.create(article_title = article_title, article_url = article_url,
+            user = article_user)
         return HttpResponseRedirect('/') # Redirect after POST
-    else:
-        form = ArticleForm()
-    return render(request,'news/submit.html', {'form':form})
+    return render(request,'news/submit.html')
+
+def gettitle(request):
+    if request.method =='POST':
+        response_data={}
+        response_data['error'] = False
+        linkurl = request.POST['link']
+        try:
+            r = requests.get(linkurl,timeout = 15)
+        except:
+            response_data['error'] = True
+            return HttpResponse(json.dumps(response_data),content_type="application/json")
+        else:
+            soup = BeautifulSoup(r.text)
+            response_data['pageTitle'] = soup.title.string
+            return HttpResponse(json.dumps(response_data),content_type="application/json")
+    return HttpResponseRedirect('/')
+
 
 def register(request):
     if request.method =='POST':
