@@ -7,7 +7,6 @@ function upvote(btn, l_id,upvotecount) {
 
         // handle a successful response
         success : function(json) {
-            console.log(json)
             if (json.error){
                 window.location.href = "login/";
             }

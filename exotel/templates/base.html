@@ -1,7 +1,7 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,27 +17,46 @@
     <link href= '{% static "css/bootstrap-theme.min.css" %}' rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
     <link rel='stylesheet' href='{% static "css/styles.css" %}' />
-  </head>
+</head>
 
-  <body role="document">
+<body role="document">
 
- {% include 'news/navbar.html' %}
+   {% include 'news/navbar.html' %}
 
-<div class="container">
-  <div class="row">
+   <div class="container">
+      <div class="row">
 
-    <div class="col-md-12">
+        <div class="col-md-12">
 
-      <div class="panel">
-        <div class="panel-body">
+          <div class="panel">
+            <div class="panel-body">
 
-            {% block content %}
-            {% endblock %}
-        </div>
+                {% block content %}
+                {% endblock %}
+            </div>
         </div>
     </div><!--/col-12-->
-  </div>
+</div>
 </div> <!-- /container -->
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">x</button>
+        <h3>Login to ExotelNews</h3
+        </div>
+        <div id="form-modal-body" class="modal-body">
+        ...
+
+    </div>
+    <div class="modal-footer">
+        New To ExotelNews?
+        <a href="{% url 'register' %}" class="btn btn-primary">Register</a>
+    </div>
+</div>
+</div>
+</div>
 
 
     <!-- Bootstrap core JavaScript
@@ -46,6 +65,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/docs.min.js' %}"></script>
+    <script src="{% static 'js/csrf.js' %}"></script>
+    <script src="{% static 'js/login.js' %}"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
     {% block script %}
@@ -53,10 +74,11 @@
     {% endblock %}
 
     <script>
-    $(document).ready(function(){
-        {% block jquery %}
-        {% endblock %}
-    });
-        </script>
-  </body>
+
+        $(document).ready(function(){
+            {% block jquery %}
+            {% endblock %}
+        });
+    </script>
+</body>
 </html>
