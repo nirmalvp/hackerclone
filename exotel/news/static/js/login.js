@@ -27,8 +27,8 @@ var formAjaxSubmit = function(form, modal) {
   });
 }
 $("#myModal").on("show.bs.modal", function(e) {
-    var link = $(e.relatedTarget);
-    $(this).find(".modal-body").load(link.attr("href"),function () {
+    var link = $(e.relatedTarget);//link.attr("href")
+    $(this).find(".modal-body").load('/login',function () {
       formAjaxSubmit('#form-modal-body form', '#myModal')
     });
 });

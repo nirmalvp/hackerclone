@@ -8,7 +8,8 @@ function upvote(btn, l_id,upvotecount) {
         // handle a successful response
         success : function(json) {
             if (json.error){
-                window.location.href = "login/";
+                $("#myModal").modal('toggle');
+                //window.location.href = "login/";
             }
             else{
             btn.text(json['btn_text'])
